@@ -1,8 +1,7 @@
-# With Grate Power Comes Grate Responsibility
+# With Great Power Comes Great Responsibility
 
 ## Best-Bat-M-Tool
-In Development PLZ Report If You Encounter Any Bugs FeadBack Is Greatly Appreciated
-
+**In Development. Please report any bugs you encounter. Feedback is greatly appreciated!**
 
 ## Features
 
