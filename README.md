@@ -5,7 +5,7 @@
 **In Development. Please report any bugs you encounter. Feedback is greatly appreciated!**
 
 ## Tutorial
-
+https://youtu.be/6mSp6uRXwa0
 
 ## Features
 
@@ -13,6 +13,10 @@
 - Message bomb channels with a delay (`messagebomb`)
 - Custom settings for color and title
 - Simple ASCII UI and navigation
+-Bat File Encrypt-er
+-Text Ip Grabber Gen Script FOR TESTING ; ]
+-Matrix Screen 
+
 
 ## Setup
 
