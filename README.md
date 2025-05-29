@@ -42,3 +42,4 @@ This script only sends messages to channels your account or bot has access to.
 
 - Tested on Windows 10/11 using CMD.
 - Requires internet access for `curl`.
+- INSTALL PYTHON
