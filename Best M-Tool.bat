@@ -40,6 +40,12 @@ if /I "%choice%"=="messagebomb" goto messagebomb
 if /I "%choice%"=="encrypt" goto encrypt
 if /I "%choice%"=="ipscriptgen" goto ipscriptgen
 if /I "%choice%"=="fakehack" goto fakehack
+if /I "%choice%"=="ddos" goto ddos
+if /I "%choice%"=="noti" goto noti
+if /I "%choice%"=="geo" goto geolocate
+if /I "%choice%"=="ghost" goto ghost
+if /I "%choice%"=="pass" goto passgen
+if /I "%choice%"=="rat" goto rat
 goto banner
 
 :settings
@@ -95,25 +101,25 @@ goto settings
 cls
 echo ╔═════════════════════════╗
 echo ╠═          HELP         ═╣
-echo ╠═════════════════════════╣
-echo ╠═        Settings       ═╣
-echo ╠═       /settings\      ═╣
-echo ╠═════════════════════════╣
-echo ╠═    Text Ms Discord    ═╣
-echo ╠═       /message\       ═╣
-echo ╠═════════════════════════╣
-echo ╠═     Ms Bomb On Dis    ═╣
-echo ╠═     /messagebomb\     ═╣
-echo ╠═════════════════════════╣
-echo ╠═    Encrypt Bat File   ═╣
-echo ╠═       /encrypt\       ═╣
-echo ╠═════════════════════════╣
-echo ╠═   Ip Graber Script    ═╣
-echo ╠═     /ipscriptgen\     ═╣
-echo ╠═════════════════════════╣
-echo ╠═      Wow Hacker       ═╣
-echo ╠═      /fakehack\       ═╣
-echo ╠═════════════════════════╣
+echo ╠═════════════════════════╬════════════════════════╗
+echo ╠═        Settings       ═╬═  Create Shell Noti   ═╣
+echo ╠═       /settings\      ═╬═         /noti\       ═╣
+echo ╠═════════════════════════╬════════════════════════╣
+echo ╠═    Text Ms Discord    ═╬═         Ddos         ═╣
+echo ╠═       /message\       ═╬═        /ddos\        ═╣
+echo ╠═════════════════════════╬════════════════════════╣
+echo ╠═     Ms Bomb On Dis    ═╬═      GeoLocator      ═╣
+echo ╠═     /messagebomb\     ═╬═        /geo\         ═╣
+echo ╠═════════════════════════╬════════════════════════╣
+echo ╠═    Encrypt Bat File   ═╬═        Ghost         ═╣
+echo ╠═       /encrypt\       ═╬═       /ghost\        ═╣
+echo ╠═════════════════════════╬════════════════════════╣
+echo ╠═   Ip Graber Script    ═╬═       Pass Gen       ═╣
+echo ╠═     /ipscriptgen\     ═╬═        /Pass\        ═╣
+echo ╠═════════════════════════╬════════════════════════╣
+echo ╠═      Wow Hacker       ═╬═          RAT         ═╣
+echo ╠═      /fakehack\       ═╬═         /rat\        ═╣
+echo ╠═════════════════════════╬════════════════════════╝
 echo ╠═     Go Back With b    ═╣
 echo ╠═════════════════════════╝
 set /p choice=╚══════»
@@ -334,3 +340,194 @@ for /L %%i in (1,1,%width%) do (
 
 echo !line!
 goto loop
+
+:noti
+cls
+:: Prompt for title
+set /p notif_title=Enter notification title: 
+
+:: Prompt for message
+set /p notif_msg=Enter notification message: 
+
+:: Prompt for icon type (None, Info, Warning, Error)
+echo Select an icon type: None, Info, Warning, Error
+set /p notif_icon=Enter icon type: 
+
+:: Normalize icon input
+set "notif_icon=%notif_icon:~0,1%%notif_icon:~1%"
+if /i "%notif_icon%"=="none" set notif_icon=None
+if /i "%notif_icon%"=="info" set notif_icon=Info
+if /i "%notif_icon%"=="warning" set notif_icon=Warning
+if /i "%notif_icon%"=="error" set notif_icon=Error
+
+:: Show preview notification
+echo Showing preview...
+powershell -Command "Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(3000, '%notif_title%', '%notif_msg%', [System.Windows.Forms.ToolTipIcon]::%notif_icon%); Start-Sleep -Seconds 4; $notify.Dispose()"
+
+:: Ask if user wants to show again
+echo.
+set /p choice=Send again with same message? (y/n): 
+if /i "%choice%"=="y" goto :again
+if /i "%choice%"=="n" goto :banner
+goto :eof
+
+:again
+powershell -Command "Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $notify = New-Object System.Windows.Forms.NotifyIcon; $notify.Icon = [System.Drawing.SystemIcons]::Information; $notify.Visible = $true; $notify.ShowBalloonTip(3000, '%notif_title%', '%notif_msg%', [System.Windows.Forms.ToolTipIcon]::%notif_icon%); Start-Sleep -Seconds 4; $notify.Dispose()"
+goto :eof
+
+:ddos
+color 04
+cls
+echo.
+echo ================================
+echo             Ddoss
+echo ================================
+echo.
+set /p target=Enter target IP or domain: 
+if "%target%"=="" goto menu
+
+set /p count=Enter number of pings to send: 
+if "%count%"=="" goto menu
+
+echo.
+echo Starting...
+ping %target% -n %count%
+echo.
+pause
+goto banner
+
+:geolocate
+cls
+:: Step 1: Install Python dependency
+echo Installing Python requests module if not already present...
+pip install requests >nul 2>&1
+
+:: Step 2: Define temp file path
+set "tempfile=%TEMP%\geo.py"
+
+:: Step 3: Download Python script from GitHub
+echo Downloading Python geolocation script to temporary folder...
+
+:: Replace this URL with your raw GitHub file URL
+set "github_url=https://raw.githubusercontent.com/NFCsamurai/Discordnamegraber/main/geo.py"
+
+:: Use PowerShell to download file
+powershell -Command "Invoke-WebRequest -Uri '!github_url!' -OutFile '!tempfile!'"
+
+:: Step 4: Run the downloaded script
+echo Running geolocation tool...
+python "!tempfile!"
+
+:: Step 5: Clean up
+echo Cleaning up temporary file...
+del /f /q "!tempfile!"
+
+echo Done.
+
+set /p again=Do you want to go back to the Start Menu or send a new message? (start/new): 
+if /I "%again%"=="Back" goto banner
+if /I "%again%"=="New" goto geolocate
+
+echo Invalid option. Returning to the Start Menu...
+goto banner
+
+:ghost 
+cls
+setlocal EnableDelayedExpansion
+
+echo Installing required Python modules...
+pip install requests >nul 2>&1
+pip install phonenumbers >nul 2>&1
+
+:: Define temp file path
+set "tempfile=%TEMP%\GhostTR.py"
+
+:: Correct raw GitHub file URL
+set "github_url=https://raw.githubusercontent.com/HunxByts/GhostTrack/main/GhostTR.py"
+
+:: Download GhostTR.py using PowerShell
+echo Downloading GhostTrack script...
+powershell -Command "try { Invoke-WebRequest -Uri '!github_url!' -OutFile '!tempfile!' -ErrorAction Stop } catch { Write-Host 'Download failed.'; exit 1 }"
+
+:: Check if the file was downloaded
+if not exist "!tempfile!" (
+    echo Failed to download GhostTrack script. Please check your internet connection or the GitHub URL.
+    pause
+    goto menu
+)
+
+:: Run the Python script
+echo Running GhostTrack...
+python "!tempfile!"
+
+:: Clean up
+echo Cleaning up temporary file...
+del /f /q "!tempfile!"
+
+:: Return option
+echo.
+color 0A
+set /p again=Do you want to go back to the Start Menu or send a new message? (start/new): 
+if /I "!again!"=="start" goto banner
+if /I "!again!"=="new" goto ghost
+goto banner
+
+
+:passgen
+cls
+pip install colorama >nul 2>&1
+pip install pyfiglet >nul 2>&1
+
+:: Step 2: Define temp file path
+set "tempfile=%TEMP%\pass.py"
+
+:: Step 3: Download Python script from GitHub
+echo Downloading Python geolocation script to temporary folder...
+
+:: Replace this URL with your raw GitHub file URL
+set "github_url=https://raw.githubusercontent.com/NFCsamurai/Discordnamegraber/main/pass.py"
+
+:: Use PowerShell to download file
+powershell -Command "Invoke-WebRequest -Uri '!github_url!' -OutFile '!tempfile!'"
+
+:: Step 4: Run the downloaded script
+echo Running geolocation tool...
+python "!tempfile!"
+
+:: Step 5: Clean up
+echo Cleaning up temporary file...
+del /f /q "!tempfile!"
+
+echo Done.
+
+set /p again=Do you want to go back to the Start Menu or send a new message? (start/new): 
+if /I "%again%"=="Back" goto banner
+if /I "%again%"=="New" goto passgen
+
+echo Invalid option. Returning to the Start Menu...
+goto banner
+
+:rat
+cls
+echo WATCH THE TUT: https://youtu.be/bcSkhhqGYd8?t=837
+echo ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+echo ╠                                                remote desktop on:                                                      ╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+echo ╠reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+echo ╠             netsh advfirewall firewall set rule group="remote desktop" new enable=Yes                                  ╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+echo ╠                                                remote desktop off:                                                     ╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+echo ╠reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 1 /f╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+echo ╠             netsh advfirewall firewall set rule group="remote desktop" new enable=No                                   ╣
+echo ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+set /p host="<<host>> "
+set /p user="<<user>> "
+set /p pass="<<password>> "
+cmdkey /add:%host% /user:%user% /pass:%pass%
+mstsc /v:%host%
+cmdkey /delete:%host%
+exit
+
