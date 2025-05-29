@@ -15,7 +15,16 @@ https://youtu.be/bcSkhhqGYd8
 - Simple ASCII UI and navigation
 -Bat File Encrypt-er
 -Text Ip Grabber Gen Script FOR TESTING ; ]
--Matrix Screen 
+-Matrix Screen
+-Fake Noti gen
+-sodd With Great Power Comes Great Responsibility
+-Geolocator
+-Phone Numb Locator
+-Username Lookup
+-Pass Generator
+-Pass Cracker
+-Tar
+
 
 
 ## Setup
