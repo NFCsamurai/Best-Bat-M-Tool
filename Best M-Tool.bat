@@ -2,6 +2,10 @@
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
 
+echo INSTALL Python FOR THIS TO WORK WHEN YOU HAVE PUT A # AT THE START OF THIS LINE
+pause
+
+
 :: Load settings
 if exist settings.txt (
     for /f "tokens=1,* delims==" %%A in (settings.txt) do (
@@ -475,6 +479,7 @@ goto banner
 
 :passgen
 cls
+
 pip install colorama >nul 2>&1
 pip install pyfiglet >nul 2>&1
 
