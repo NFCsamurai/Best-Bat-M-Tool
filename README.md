@@ -13,17 +13,17 @@ https://youtu.be/bcSkhhqGYd8
 - Message bomb channels with a delay (`messagebomb`)
 - Custom settings for color and title
 - Simple ASCII UI and navigation
--Bat File Encrypt-er
--Text Ip Grabber Gen Script FOR TESTING ; ]
--Matrix Screen
--Fake Noti gen
--sodd With Great Power Comes Great Responsibility
--Geolocator
--Phone Numb Locator
--Username Lookup
--Pass Generator
--Pass Cracker
--Tar
+- Bat File Encrypt-er
+- Text Ip Grabber Gen Script FOR TESTING ; ]
+- Matrix Screen
+- Fake Noti gen
+- sodd With Great Power Comes Great Responsibility
+- Geolocator
+- Phone Numb Locator
+- Username Lookup
+- Pass Generator
+- Pass Cracker
+- Tar
 
 
 
