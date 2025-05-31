@@ -1,4 +1,4 @@
-![Banner](https://github.com/NFCsamurai/Best-Bat-M-Tool/raw/main/banner.png)
+![Banner](https://github.com/NFCsamurai/Best-Bat-M-Tool/raw/main/img/Banner.png)
 # With Great Power Comes Great Responsibility
 
 ## Best-Bat-M-Tool
