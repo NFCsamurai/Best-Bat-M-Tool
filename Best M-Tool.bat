@@ -659,6 +659,7 @@ echo [33m   Insta/@NFCronin[0m
 echo [34m   Discord/The Samurai[0m
 echo [36m   Type hackeddiscord For[0m
 echo [36m   Hacked Discord/The Hacked Samurai[0m
+echo [32m   Github/GitHub[0m
 echo [32m   Patreon/HyperSec[0m
 echo [31m   Start[0m
 echo.
@@ -670,6 +671,7 @@ if /I "%choice%"=="insta" start https://www.instagram.com/nfcsamurai.official/
 if /I "%choice%"=="discord" start https://discord.com/invite/rTEPW77yy9
 if /I "%choice%"=="hackeddiscord" start https://discord.com/invite/rTEPW77yy9
 if /I "%choice%"=="patreon" start https://www.patreon.com/c/nfcsamurai/membership
+if /I "%choice%"=="github" start https://github.com/NFCsamurai/Best-Bat-M-Tool
 if /I "%choice%"=="start" goto banner
 goto about
 
