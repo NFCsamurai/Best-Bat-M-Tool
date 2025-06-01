@@ -8,7 +8,6 @@
 https://youtu.be/bcSkhhqGYd8
 
 ## Features
-![Banner](https://github.com/NFCsamurai/Best-Bat-M-Tool/raw/main/img/Page.png)
 
 - Send a message to multiple channels (`message`)
 - Message bomb channels with a delay (`messagebomb`)
