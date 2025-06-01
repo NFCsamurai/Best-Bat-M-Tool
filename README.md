@@ -24,7 +24,7 @@ https://youtu.be/bcSkhhqGYd8
 - Pass Generator
 - Pass Cracker
 - Tar
-- Custome Cmd Made By Ebola Man
+- Custom Cmd Made By Ebola Man
 
 
 
