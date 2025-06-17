@@ -1,11 +1,6 @@
 @echo off
-chcp 65001 >null
+chcp 65001 >nul
 setlocal EnableDelayedExpansion
-
-echo INSTALL Python FOR THIS TO WORK WHEN YOU HAVE PUT A :: AT THE START OF THIS LINE
-start https://apps.microsoft.com/detail/9PNRBTZXMB4Z?hl=en-us&gl=US&ocid=pdpshare
-pause
-
 
 :: Load settings
 if exist settings.txt (
@@ -17,33 +12,21 @@ if exist settings.txt (
     timeout /t 1 >nul
     set "color=0A"
     set "title=Great M-Tool - Fsociety"
+    set "banner=1"
 )
 
 :: Apply settings
 color %color%
 title %title%
 
-:banner2
-cls
-echo.
-echo [31m   _____ __________  __________ ________ __________ ___________________[0m
-ping localhost -n 1 >nul
-echo [31m  /     \______   \ \______   \\_____  \\______   \\_____  \__    ___/[0m
-ping localhost -n 2 >nul
-echo [91m /  \ /  \│       _/  │       _/ /   │   \│    │  _/ /   │   \│    │   [0m
-ping localhost -n 1 >nul
-echo [91m/    Y    \    │   \  │    │   \/    │    \    │   \/    │    \    │   [0m
-ping localhost -n 2 >nul
-echo [31m\____│__  /____│_  /  │____│_  /\_______  /______  /\_______  /____│   [0m
-ping localhost -n 1 >nul
-echo [31m        \/       \/          \/         \/       \/         \/        [0m
-ping localhost -n 2 >nul
-echo.
-echo [91m                   │Made By Fsociety│[0m
-ping localhost -n 3 >nul
-goto banner
+:: Banner switching logic
+if "%banner%"=="2" (
+    goto bannersec
+) else (
+    goto bannermr
+)
 
-:banner
+:bannermr
 cls
 echo.
 echo [31m   _____ __________  __________ ________ __________ ___________________[0m
@@ -60,10 +43,25 @@ echo [31m        \/       \/          \/         \/       \/         \/        
 ping localhost -n 1 >nul
 echo.
 echo [91m                   │Made By Fsociety│[0m
+goto mainmenu
+
+:bannersec
+cls
+echo [35m ████████   [92m███████   ███████  ███████    ██████  ███████    █████[0m   [35m████████[0m
+ping localhost -n 1 >nul
+echo [35m█  ████  █  [92m█      █  █        █      █  █        █         █     [0m  [35m█  ████  █[0m
+ping localhost -n 1 >nul
+echo [35m████  ████  [92m█      █  █████    █      █   █████   ███████  █      [0m  [35m████  ████[0m
+ping localhost -n 1 >nul
+echo  [35m████████   [92m█      █  █        █      █        █  █         █     [0m   [35m████████[0m
+ping localhost -n 1 >nul
+echo   [35m█░█░█░    [92m███████   ███████  ███████   ███████  ███████    █████[0m    [35m█░█░█░[0m
+ping localhost -n 1 >nul
+echo.
+
+:mainmenu
 echo.
 echo.
-echo.
-echo.       
 echo.
 echo ┌─────────────────────────┐ ┌─────────────────────────┐
 echo │           More          │ │      Ms Bomb On Dis     │
@@ -92,7 +90,7 @@ if /I "%choice%"=="rat" goto rat
 if /I "%choice%"=="passcrack" goto passcrack
 if /I "%choice%"=="about" goto about
 if /I "%choice%"=="cmd" goto cmd
-goto banner
+goto mainmenu
 
 :settings
 cls
@@ -105,13 +103,15 @@ echo ├────────────────────────
 echo │       Change Title      │
 echo │         /title\         │
 echo ├─────────────────────────┤
+echo │      Change Banner      │
+echo │        /banner\         │
+echo ├─────────────────────────┤
 echo │      Save Settings      │
 echo │         /save\          │
 echo ├─────────────────────────┤
-echo │     Sart On Startup     │
+echo │     Start On Startup    │
 echo │        /startup\        │
 echo └─────────────────────────┘
-echo.
 echo.
 echo ┌─────────────────────────┐
 echo │      Go Back With b     │
@@ -120,8 +120,9 @@ set /p choice=└──────┤
 
 if /I "%choice%"=="color" goto changeColor
 if /I "%choice%"=="title" goto changeTitle
+if /I "%choice%"=="banner" goto changeBanner
 if /I "%choice%"=="save" goto saveSettings
-if /I "%choice%"=="b" goto banner
+if /I "%choice%"=="b" goto inputban
 if /I "%choice%"=="startup" goto startup
 goto settings
 
@@ -137,13 +138,21 @@ echo Enter new window title:
 set /p title=
 goto settings
 
+:changeBanner
+cls
+echo Choose Banner:
+echo [1] Default Banner
+echo [2] Animated Banner
+set /p banner=Enter 1 or 2:
+goto settings
+
 :saveSettings
 (
     echo color=%color%
     echo title=%title%
+    echo banner=%banner%
 ) > settings.txt
 
-:: Re-apply settings immediately
 color %color%
 title %title%
 echo Settings saved and applied!
@@ -172,12 +181,11 @@ echo │       Wow Hacker        │ │           RAT           │
 echo │       /fakehack\        │ │          /rat\          │
 echo └─────────────────────────┘ └─────────────────────────┘
 echo.
-echo.
 echo ┌───────────────────────────────────────────────────────────────────────────────┐
 echo │                                 Go Back With b                                │ 
 echo ├───────────────────────────────────────────────────────────────────────────────┘
 set /p choice=└──────┤
-if /I "%choice%"=="b" goto banner
+if /I "%choice%"=="b" goto inputban
 goto help
 
 :message  
@@ -247,8 +255,7 @@ if /I "%again%"=="start" goto banner
 if /I "%again%"=="new" goto message
 
 echo Invalid option. Returning to the Start Menu...
-goto banner
-
+goto inputban
 
 :messagebomb
 cls
@@ -335,7 +342,7 @@ if /I "%again%"=="start" goto banner
 if /I "%again%"=="new" goto messagebomb
 
 echo Invalid option. Returning to the Start Menu...
-goto banner
+goto inputban
 
 :encrypt
 cls
@@ -372,7 +379,7 @@ if exist "%output%" (
 
 start script.txt
 
-goto banner
+goto inputban
 
 
 :fakehack
@@ -421,8 +428,8 @@ powershell -Command "Add-Type -AssemblyName System.Windows.Forms; Add-Type -Asse
 :: Ask if user wants to show again
 echo.
 set /p choice=Send again with same message? (y/n): 
-if /i "%choice%"=="y" goto :again
-if /i "%choice%"=="n" goto :banner
+if /i "%choice%"=="y" goto again
+if /i "%choice%"=="n" goto inputban
 goto :eof
 
 :again
@@ -448,7 +455,7 @@ echo Starting...
 ping %target% -n %count%
 echo.
 pause
-goto banner
+goto inputban
 
 :geolocate
 cls
@@ -483,7 +490,7 @@ if /I "%again%"=="Back" goto banner
 if /I "%again%"=="New" goto geolocate
 
 echo Invalid option. Returning to the Start Menu...
-goto banner
+goto inputban
 
 :ghost 
 cls
@@ -524,7 +531,7 @@ color 0A
 set /p again=Do you want to go back to the Start Menu or send a new message? (start/new): 
 if /I "!again!"=="start" goto banner
 if /I "!again!"=="new" goto ghost
-goto banner
+goto inputban
 
 
 :passgen
@@ -560,7 +567,7 @@ if /I "%again%"=="Back" goto banner
 if /I "%again%"=="New" goto passgen
 
 echo Invalid option. Returning to the Start Menu...
-goto banner
+goto inputban
 
 :rat
 cls
@@ -649,7 +656,7 @@ echo.
 echo [✓] The shortcut has been added to Startup.
 echo Location: %startupFolder%
 pause
-goto banner
+goto inputban
 
 :about
 cls
@@ -694,3 +701,11 @@ set /p cmd=".%BS% [97m└──────┤[0m
 echo.
 %cmd%
 goto input
+
+:inputban
+cls
+if "%banner%"=="2" (
+    goto bannersec
+) else (
+    goto bannermr
+)
